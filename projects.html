@@ -6,25 +6,152 @@
   <title>Projects – Orestas Puikys</title>
   <link href="https://orestasp.github.io/orestas-profile/projects.html" rel="stylesheet">
   <style>
+    :root {
+      --bg-light: #ffffff;
+      --text-light: #111111;
+      --bg-dark: #0f0f0f;
+      --text-dark: #f0f0f0;
+      --primary: #12326f;
+      --accent: #7a7a7a;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Roboto', sans-serif;
+    }
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      padding: 2rem;
-      background-color: white;
-      color: black;
+      font-family: var(--font-body);
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: 0.3s ease all;
     }
-    h1 {
-      font-family: 'Playfair Display', serif;
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: var(--bg-light);
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+    }
+    nav li {
+      position: relative;
+    }
+    nav li a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    nav li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      min-width: 160px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 999;
+      flex-direction: column;
+    }
+    nav li:hover ul {
+      display: flex;
+    }
+    nav li ul li a {
+      padding: 0.5rem 1rem;
+      white-space: nowrap;
+      color: #000;
+    }
+    body.dark nav {
+      background-color: #1a1a1a;
+    }
+    body.dark nav li ul {
+      background-color: #333;
+    }
+    body.dark nav li ul li a {
+      color: #eee;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: var(--primary);
+      color: white;
+    }
+    header h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+    .container p {
+      line-height: 1.6;
+      font-size: 1.05rem;
     }
     a {
-      color: #12326f;
-      font-weight: 500;
+      color: var(--primary);
+    }
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav li {
+        margin-bottom: 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Academic & Personal Projects</h1>
-  <p>Explore coding, theoretical physics, and other personal projects here.</p>
-  <p><a href="/index.html">← Back to Home</a></p>
+  <nav>
+    <ul>
+      <li><a href="/index.html">Home</a></li>
+      <li>
+        <a>Notes</a>
+        <ul>
+          <li><a href="/notes/jf.html">JF Year</a></li>
+          <li><a href="/notes/sf.html">SF Year</a></li>
+        </ul>
+      </li>
+      <li><a href="/projects/">Projects</a></li>
+      <li><a onclick="toggleTheme()">Toggle Theme</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Projects</h1>
+  </header>
+
+  <div class="container">
+    <p>This page highlights academic and personal projects related to theoretical physics, programming, and more. Feel free to explore!</p>
+    <p>More content will be added soon...</p>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      localStorage.setItem('theme-sync', Date.now());
+    }
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'theme-sync') {
+        document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
+      }
+    });
+  </script>
 </body>
 </html>
+
