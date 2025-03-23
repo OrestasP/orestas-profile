@@ -17,11 +17,19 @@
       --font-body: 'Roboto', sans-serif;
     }
 
+    html {
+  background-color: var(--bg-light);
+}
+
+html.dark {
+  background-color: var(--bg-dark);
+}
+
     body {
       margin: 0;
       font-family: var(--font-body);
-      background-color: var(--bg-light);
-      color: var(--text-light);
+      background-color: inherit;
+      color: inherit;
       transition: 0.3s ease all;
     }
 
@@ -94,8 +102,9 @@ body.dark nav ul ul {
   background-color: #333;
 }
 
+    
 body.dark nav ul ul li a {
-  color: #f0f0f0;
+  color: #ffffff; /* Brighter text for dark mode */
 }
 
 body.dark nav ul ul li a:hover {
@@ -201,26 +210,35 @@ body.dark nav ul ul li a:hover {
   </div>
 
   <script>
-    const toggleTheme = () => {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-      localStorage.setItem('theme-sync', Date.now());
-    };
+<script>
+  const storedTheme = localStorage.getItem('theme') || 'light';
+  if (storedTheme === 'dark') document.documentElement.classList.add('dark');
 
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+  });
 
-    window.addEventListener('storage', e => {
-      if (e.key === 'theme-sync') document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
-    });
+  const toggleTheme = () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    localStorage.setItem('theme-sync', Date.now());
+  };
 
-    const toggleDropdown = e => {
-      e.stopPropagation();
-      e.target.nextElementSibling.classList.toggle('active');
-    };
+  window.addEventListener('storage', e => {
+    if (e.key === 'theme-sync') {
+      const isDark = localStorage.getItem('theme') === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+    }
+  });
 
-    document.body.addEventListener('click', () => {
-      document.querySelectorAll('nav ul ul').forEach(el => el.classList.remove('active'));
-    });
-  </script>
+  const toggleDropdown = e => {
+    e.stopPropagation();
+    e.target.nextElementSibling.classList.toggle('active');
+  };
+
+  document.body.addEventListener('click', () => {
+    document.querySelectorAll('nav ul ul').forEach(el => el.classList.remove('active'));
+  });
+</script>
 </body>
 </html>
