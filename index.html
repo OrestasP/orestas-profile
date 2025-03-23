@@ -17,19 +17,11 @@
       --font-body: 'Roboto', sans-serif;
     }
 
-    html {
-  background-color: var(--bg-light);
-}
-
-html.dark {
-  background-color: var(--bg-dark);
-}
-
     body {
       margin: 0;
       font-family: var(--font-body);
-      background-color: inherit;
-      color: inherit;
+      background-color: var(--bg-light);
+      color: var(--text-light);
       transition: 0.3s ease all;
     }
 
@@ -102,9 +94,8 @@ body.dark nav ul ul {
   background-color: #333;
 }
 
-    
 body.dark nav ul ul li a {
-  color: #ffffff; /* Brighter text for dark mode */
+  color: #f0f0f0;
 }
 
 body.dark nav ul ul li a:hover {
@@ -210,35 +201,26 @@ body.dark nav ul ul li a:hover {
   </div>
 
   <script>
-<script>
-  const storedTheme = localStorage.getItem('theme') || 'light';
-  if (storedTheme === 'dark') document.documentElement.classList.add('dark');
+    const toggleTheme = () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+      localStorage.setItem('theme-sync', Date.now());
+    };
 
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-  });
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-  const toggleTheme = () => {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('theme-sync', Date.now());
-  };
+    window.addEventListener('storage', e => {
+      if (e.key === 'theme-sync') document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
+    });
 
-  window.addEventListener('storage', e => {
-    if (e.key === 'theme-sync') {
-      const isDark = localStorage.getItem('theme') === 'dark';
-      document.documentElement.classList.toggle('dark', isDark);
-    }
-  });
+    const toggleDropdown = e => {
+      e.stopPropagation();
+      e.target.nextElementSibling.classList.toggle('active');
+    };
 
-  const toggleDropdown = e => {
-    e.stopPropagation();
-    e.target.nextElementSibling.classList.toggle('active');
-  };
-
-  document.body.addEventListener('click', () => {
-    document.querySelectorAll('nav ul ul').forEach(el => el.classList.remove('active'));
-  });
-</script>
+    document.body.addEventListener('click', () => {
+      document.querySelectorAll('nav ul ul').forEach(el => el.classList.remove('active'));
+    });
+  </script>
 </body>
 </html>
