@@ -63,12 +63,14 @@ nav ul ul {
   left: 0;
   background-color: #fff;
   min-width: 160px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   flex-direction: column;
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Ensures inner content respects the rounded corners */
 }
 
 nav ul ul.active {
@@ -80,18 +82,20 @@ nav ul ul.active {
 nav ul ul li a {
   padding: 0.5rem 1rem;
   color: var(--text-light);
+  transition: background-color 0.3s ease;
 }
 
-body.dark nav {
-  background-color: #1a1a1a;
+nav ul ul li a:hover {
+  background-color: #f0f0f0; /* subtle hover effect */
 }
 
+/* Dark mode dropdown adjustments */
 body.dark nav ul ul {
   background-color: #333;
 }
 
-body.dark nav ul ul li a {
-  color: #eee;
+body.dark nav ul ul li a:hover {
+  background-color: #444;
 }
 
 header {
