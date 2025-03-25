@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orestas Puikys – Theoretical Physics</title>
   <link href="https://orestasp.github.io/orestas-profile/" rel="stylesheet">
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
   <style>
     :root {
       --bg-light: #ffffff;
@@ -185,7 +183,6 @@ body.dark nav ul ul li a:hover {
     <h1>Orestas Puikys</h1>
     <p>Undergraduate Student – Theoretical Physics</p>
     <p>Trinity College Dublin, School of Mathematics</p>
-  <div id="datetime" style="font-size: 1.5em; margin-top: 20px;"></div>
   </header>
 
   <div class="container">
@@ -202,21 +199,6 @@ body.dark nav ul ul li a:hover {
       </div>
     </section>
   </div>
-
-  <py-script>
-    import asyncio
-    from datetime import datetime
-    from js import document
-
-    async def update_time():
-        while True:
-            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            document.getElementById("datetime").innerHTML = now
-            await asyncio.sleep(1)
-
-    # Schedule the asynchronous update task.
-    asyncio.create_task(update_time())
-  </py-script>
   
   <script>
     const toggleTheme = () => {
