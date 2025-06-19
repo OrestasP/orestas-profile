@@ -60,62 +60,65 @@ nav li a {
 nav ul ul {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
   background-color: #fff;
-  min-width: 160px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.1);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  transition: 
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(.4,2,.6,1),
+    visibility 0.3s ease;
   flex-direction: column;
-  border-radius: 8px;  /* Rounded corners */
-  overflow: hidden;    /* Ensures rounded corners aren't broken */
+  border-radius: 8px;
+  overflow: hidden;
+  width: max-content;
+  min-width: 0;
+  z-index: 100;
 }
 
 nav ul ul.active {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
+}
+
+nav ul ul li:not(:last-child) a {
+  border-bottom: 1px solid #e0e0e0;
 }
 
 nav ul ul li a {
-  padding: 0.6rem 1rem;
+  padding: 0.45rem 1.2rem;
   color: var(--text-light);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  display: block;
+  text-align: left;
+  font-weight: 600;
 }
 
-nav ul ul li a:hover {
-  background-color: #f0f0f0;
-}
-
-/* Dark theme support */
+/* --- DARK THEME DROPDOWN --- */
 body.dark nav ul ul {
-  background-color: #333;
+  background-color: #23272f;
+}
+
+body.dark nav ul ul li:not(:last-child) a {
+  border-bottom: 1px solid #444;
 }
 
 body.dark nav ul ul li a {
-  color: #f0f0f0;
+  color: #fff;
 }
 
 body.dark nav ul ul li a:hover {
   background-color: #444;
+  color: #fff;
 }
 
-    nav ul ul.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    nav ul ul li a {
-      padding: 0.5rem 1rem;
-      color: var(--text-light);
-    }
-
-    body.dark nav { background-color: #1a1a1a; }
-    body.dark nav ul ul { background-color: #333; }
-    body.dark nav ul ul li a { color: #444; }
+body.dark nav {
+  background-color: #23272f;
+}
 
 header {
   text-align: center;
