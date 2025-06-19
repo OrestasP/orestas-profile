@@ -176,7 +176,45 @@ a.pdf-link:hover {
   }
 }
 
+html.theme-animate, body.theme-animate {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+html.dark body {
+  background-color: #0f0f0f;
+  color: #f0f0f0;
+}
+
+html.dark section {
+  background-color: #1a1a1a;
+}
+
+html.dark nav {
+  background-color: #23272f;
+}
+
+html.dark nav ul ul {
+  background-color: #23272f;
+}
+
+html.dark nav ul ul li:not(:last-child) a {
+  border-bottom: 1px solid #444;
+}
+
+html.dark nav ul ul li a {
+  color: #fff;
+}
+
+html.dark nav ul ul li a:hover {
+  background-color: #444;
+  color: #fff;
+}
   </style>
+  <script>
+if (localStorage.getItem('theme') === 'dark') {
+  document.documentElement.classList.add('dark');
+}
+  </script>
 </head>
 <body>
   <nav>
@@ -226,19 +264,19 @@ a.pdf-link:hover {
 
   <script>
 // Theme toggle functionality
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark');
-}
-
 function toggleTheme() {
-  const isDark = document.body.classList.toggle('dark');
+  document.documentElement.classList.add('theme-animate');
+  const isDark = document.documentElement.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
   localStorage.setItem('theme-sync', Date.now());
+  setTimeout(() => {
+    document.documentElement.classList.remove('theme-animate');
+  }, 400);
 }
 
 window.addEventListener('storage', (e) => {
   if (e.key === 'theme-sync') {
-    document.body.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
+    document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   }
 });
 
