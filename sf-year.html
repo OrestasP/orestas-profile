@@ -148,6 +148,7 @@ section {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   background-color: var(--bg-light);
+  text-align: center;
 }
 
 body.dark section {
@@ -172,6 +173,26 @@ a.pdf-link {
 
 a.pdf-link:hover {
   background-color: #0a214f;
+}
+
+#lectureList {
+  text-align: left;
+  margin-left: 0;
+  padding-left: 0;
+  display: block;
+}
+
+#lectureList li {
+  list-style: disc inside;
+  margin: 0.5em 0;
+  padding: 0;
+}
+
+#lectureList li a {
+  display: inline-block;
+  width: auto;
+  min-width: 0;
+  margin: 0;
 }
 
 @media (max-width: 600px) {
@@ -249,7 +270,7 @@ if (localStorage.getItem('theme') === 'dark') {
     <h1>SF Year Notes</h1>
   </header>
 
- <div class=\"container\">
+ <div class="container">
     <section>
       <h2>Real Analysis</h2>
       <p>This section contains Notes taken during the 2025 summer for Real Analysis.</p>
